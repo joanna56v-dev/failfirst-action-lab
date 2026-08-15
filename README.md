@@ -1,2 +1,78 @@
-# failfirst-action-lab
-FailFirst — interactive action-bug discovery and failure-simulation demo.
+# FailFirst · 行动实验室
+
+> 先失败，再开始。
+
+FailFirst 是一个移动端优先的互动体验：用户通过场景选择、行动问题、失败模拟与角色卡，识别当前阻止自己开始的“行动 Bug”。它不是固定人格测试，也不提供心理诊断。
+
+## 在线 Demo
+
+- Vercel: https://failfirst-action-lab.vercel.app/
+- ChatGPT Site: https://failfirst-action-lab.kind-mink-2725.chatgpt.site/
+
+## 给 ChatGPT / 评审者的读取指引
+
+网页是客户端交互应用，抓取工具可能无法执行完整的页面状态。请直接读取仓库中的以下文件：
+
+1. `app/page.tsx`：完整交互流程、全部页面文案、问题、选项、失败模拟事件与结果卡内容。
+2. `app/globals.css`：黑粉主视觉、像素游戏标题、动效、响应式布局与卡片正反面样式。
+3. `app/layout.tsx`：页面元数据、字体与全局结构。
+4. `tests/rendered-html.test.mjs`：构建后关键文案与静态资源的验证。
+
+请先从源码中核对这些真实界面元素，再进行评审：
+
+- 首页标题：`先失败，再开始`
+- 首页按钮：`进入行动实验`
+- 三个入口：`offer召唤局`、`人生偷跑局`、`单干开张局`
+- 结果角色示例：`再等等怪`
+- 失败模拟事件示例：`静默期`
+
+## 核心体验流程
+
+```text
+首页
+→ 选择尚未发生的路径
+→ 回答 4–5 个行动问题
+→ 发现当前行动 Bug
+→ 进入 2 秒游戏转场
+→ 失败模拟事件
+→ 失败成本对照
+→ 游戏结束转场（用户点击后继续）
+→ 可翻面的角色卡
+→ 保存卡片图片分享
+```
+
+## 视觉方向
+
+- 黑色与深粉色的网页背景
+- 鲜艳马卡龙 / 多巴胺色怪诞角色
+- 扁平油画质感，不写实、不幼稚、不过度立体
+- 首页 slogan 使用像素游戏风；其他标题为加粗无衬线体
+- 背景包含低干扰的移动游戏符号
+
+## 本地运行
+
+要求 Node.js `>=22.13.0`。
+
+```bash
+npm install
+npm run dev
+```
+
+构建与验证：
+
+```bash
+npm run build
+npm test
+```
+
+## 技术栈
+
+- React 19
+- TypeScript
+- vinext / Vite
+- CSS animations
+- `html-to-image`（保存分享卡片）
+
+## 公开范围
+
+此仓库用于让评审者和 ChatGPT 准确读取产品结构与文案。部署缓存、本地环境文件、密钥和平台私有配置不在公开范围内。
