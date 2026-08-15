@@ -527,3 +527,24 @@
   .story .event-card>.story-fb{flex:0 0 auto;display:grid;grid-template-columns:1fr;align-content:start;gap:10px;min-height:auto;margin-top:14px;padding:23px}
   .story .event-card>.story-fb>p,.story .event-card>.story-fb>button{grid-column:1}
 }
+
+/* Purpose-built 12:5 scene banners fill the 30% header without synthetic zoom. */
+.question-art img,.event-visual img{
+  object-fit:cover;
+  object-position:center center;
+  transform:none;
+}
+
+/* Give the collectible character more room while keeping the card hierarchy compact. */
+.failure-card .front{padding-top:16px}
+.failure-card .front>small{position:relative;z-index:2;transform:translateY(-3px)}
+.failure-card .card-character{
+  height:285px;
+  margin:4px 0 7px;
+  object-position:center 30%;
+}
+
+@media(max-width:760px){
+  .failure-card{height:560px}
+  .failure-card .card-character{height:245px;margin-top:2px}
+}

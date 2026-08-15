@@ -28,31 +28,31 @@ const bugs: Record<BugId, { image: string; code: string; name: string; en: strin
 };
 
 const discoveries = [
-  { icon: "EV/01", image: "/questions/books-question.png", name: "📮 已读不回森林", place: "冒险事件 01 · OFFER 召唤局", description: "20 封信飞出了岛屿。但是……森林里没有任何回复。", question: "面对安静的邮箱，你决定？", choices: [
+  { icon: "EV/01", image: "/questions/books-question-banner.png", name: "📮 已读不回森林", place: "冒险事件 01 · OFFER 召唤局", description: "20 封信飞出了岛屿。但是……森林里没有任何回复。", question: "面对安静的邮箱，你决定？", choices: [
     ["收集更多装备｜可能我还不够强，再升级一下", "你带回了更多装备，但森林依然没有回声。", { collect: 2, beginner: 1 }],
     ["查看地图反馈｜先看看真实世界需要什么", "你没有继续猜，而是开始寻找真实掉落。", {}],
     ["装修冒险基地｜下一次一定更完美", "基地更漂亮了，森林仍然保持安静。", { perfect: 2 }],
     ["召开战略会议｜先分析所有可能", "所有路线都发言了，下一次出发还在等散会。", { think: 2 }],
   ]},
-  { icon: "EV/02", image: "/questions/silent-question.png", name: "📄 简历炼金工坊", place: "冒险事件 02 · OFFER 召唤局", description: "你的简历已经升级到第 37 版。但是……它还躺在背包里。", question: "这份简历下一步？", choices: [
+  { icon: "EV/02", image: "/questions/silent-question-banner.png", name: "📄 简历炼金工坊", place: "冒险事件 02 · OFFER 召唤局", description: "你的简历已经升级到第 37 版。但是……它还躺在背包里。", question: "这份简历下一步？", choices: [
     ["继续强化装备｜还能再优化一点", "第 38 版开始锻造，真实副本仍未开启。", { perfect: 2 }],
     ["发出第一封信｜先进入真实副本", "简历终于离开工坊，地图开始加载。", {}],
     ["查看更多攻略｜看看高手怎么玩", "你收藏了更多配方，但这一版还在工作台上。", { collect: 2 }],
     ["等待最佳状态｜准备好了再开始", "工坊保存了进度，也把出发时间交给了未来。", { wait: 2 }],
   ]},
-  { icon: "EV/03", image: "/questions/mirror-question.png", name: "🧾 JD 怪兽来袭", place: "冒险事件 03 · OFFER 召唤局", description: "你打开招聘页面。一只 JD 怪兽出现：最好会这个，也最好会那个。", question: "面对不断增加的要求，你怎么办？", choices: [
+  { icon: "EV/03", image: "/questions/mirror-question-banner.png", name: "🧾 JD 怪兽来袭", place: "冒险事件 03 · OFFER 召唤局", description: "你打开招聘页面。一只 JD 怪兽出现：最好会这个，也最好会那个。", question: "面对不断增加的要求，你怎么办？", choices: [
     ["收集全部装备｜我要全部学会", "背包越来越满，怪兽还在继续追加词条。", { collect: 2 }],
     ["锁定主线任务｜先解决最重要的", "你绕过支线词条，瞄准了这一关的核心弱点。", {}],
     ["研究通关路线｜找到最佳方案", "攻略写满了一整页，战斗还没有开始。", { think: 2 }],
     ["回到新手村｜等级高一点再挑战", "村里很安全，JD 怪兽仍守在地图入口。", { wait: 2 }],
   ]},
-  { icon: "EV/04", image: "/questions/interview-question.png", name: "🎭 面试隐藏关", place: "冒险事件 04 · OFFER 召唤局", description: "面试 Boss 出现。它释放技能：请介绍一下你自己。", question: "你准备如何挑战？", choices: [
+  { icon: "EV/04", image: "/questions/interview-question-banner.png", name: "🎭 面试隐藏关", place: "冒险事件 04 · OFFER 召唤局", description: "面试 Boss 出现。它释放技能：请介绍一下你自己。", question: "你准备如何挑战？", choices: [
     ["直接进入战斗｜先打一局再说", "你没有满血保证，但获得了第一份战斗数据。", {}],
     ["强化防御装备｜准备所有可能问题", "护甲更厚了，隐藏关仍然没有实战记录。", { perfect: 2 }],
     ["查看 Boss 攻略｜研究高手打法", "你记下了更多招式，Boss 仍在等待你的回合。", { collect: 1, think: 1 }],
     ["暂时退出副本｜状态好了再来", "副本被保存，重新进入的日期仍未确定。", { wait: 2 }],
   ]},
-  { icon: "EV/05", image: "/questions/door-question.png", name: "🪄 Offer 召唤阵", place: "冒险事件 05 · OFFER 召唤局", description: "所有装备已经准备完成。现在只差：按下发送按钮。", question: "最后一步，你选择？", choices: [
+  { icon: "EV/05", image: "/questions/door-question-banner.png", name: "🪄 Offer 召唤阵", place: "冒险事件 05 · OFFER 召唤局", description: "所有装备已经准备完成。现在只差：按下发送按钮。", question: "最后一步，你选择？", choices: [
     ["启动冒险｜先开始，答案会出现", "召唤阵亮起，现实世界终于收到你的信号。", {}],
     ["最后检查一次｜确认没有漏洞", "你修好一个细节，又发现了下一个可检查项。", { perfect: 1 }],
     ["打开终极攻略｜再确认一次", "攻略继续展开，召唤阵暂时保持待机。", { collect: 1 }],
@@ -61,19 +61,19 @@ const discoveries = [
 ] as const;
 
 const events = [
-  { title: "拒绝信掉落", icon: "DROP/01", image: "/questions/silent-question-v2.png", text: "Boss 掉落一封邮件。奖励：一次失败经验。面对失败掉落，你会？", metrics: [["1", "封拒信"], ["1", "次经验"]], choices: [
+  { title: "拒绝信掉落", icon: "DROP/01", image: "/questions/silent-question-v2-banner.png", text: "Boss 掉落一封邮件。奖励：一次失败经验。面对失败掉落，你会？", metrics: [["1", "封拒信"], ["1", "次经验"]], choices: [
     ["删除存档｜看来我不适合", "这次失败被写成了结局，地图在这里停止更新。", "失败变成终点", 0],
     ["查看掉落说明｜这里有什么信息", "你打开邮件，把判决拆成了可以读取的线索。", "经验碎片 × 1", 1],
     ["修改装备｜调整后继续挑战", "你只调整一件装备，然后保留了下一次进场机会。", "升级机会 × 1", 1],
     ["收藏失败样本｜记录这次经验", "拒绝没有消失，但它第一次成为可携带的收藏。", "失败收藏卡 × 1", 1],
   ]},
-  { title: "新人试炼场", icon: "TRIAL/02", image: "/questions/rejection-question-v2.png", text: "新手村已解锁，但第一关并不简单。遇到不会的问题，你怎么办？", metrics: [["1", "个难题"], ["4", "条路线"]], choices: [
+  { title: "新人试炼场", icon: "TRIAL/02", image: "/questions/rejection-question-v2-banner.png", text: "新手村已解锁，但第一关并不简单。遇到不会的问题，你怎么办？", metrics: [["1", "个难题"], ["4", "条路线"]], choices: [
     ["呼叫队友｜向经验玩家学习", "你没有交出控制权，只让队友点亮了一段地图。", "团队经验 +1", 1],
     ["开启研究模式｜先补齐知识", "你补上当前关卡需要的知识，没有把整个副本搬回课堂。", "学习经验 +1", 1],
     ["直接挑战｜边做边升级", "你带着空槽进入战斗，并发现下一件真正需要的装备。", "实战经验 +1", 1],
     ["暂停任务｜准备好了再继续", "任务被安全保存，也进入了没有截止日期的等待区。", "任务进入等待状态", 0],
   ]},
-  { title: "进度幻境", icon: "MIRROR/03", image: "/questions/interview-question-v2.png", text: "幻境启动。你看见：别人已经通关。面对别人的进度，你选择？", metrics: [["99", "名玩家"], ["1", "张地图"]], choices: [
+  { title: "进度幻境", icon: "MIRROR/03", image: "/questions/interview-question-v2-banner.png", text: "幻境启动。你看见：别人已经通关。面对别人的进度，你选择？", metrics: [["99", "名玩家"], ["1", "张地图"]], choices: [
     ["加速追赶｜我要马上超过她们", "你获得一阵冲刺能量，也暂时忘记了自己的任务坐标。", "竞争能量，方向感 -1", 0],
     ["查看自己的地图｜我的路线不同", "排行榜退到背景，你重新看见了自己的下一格。", "方向感 +1", 1],
     ["无限刷排行榜｜看看别人怎么成功", "信息持续掉落，时间也在同步消耗。", "信息 +10，时间 -10", 0],
