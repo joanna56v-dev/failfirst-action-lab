@@ -142,14 +142,41 @@ export default function Home() {
     setSaving(true);
     setSaveMessage("");
     setFlipped(false);
-    await new Promise(resolve => setTimeout(resolve, 180));
+    await new Promise(resolve => setTimeout(resolve, 720));
     try {
-      const dataUrl = await toPng(cardFrontRef.current, {
-        cacheBust: true,
-        pixelRatio: 3,
-        backgroundColor: "#ffd35a",
-        style: { transform: "none", color: "#17131d", mixBlendMode: "normal" },
-      });
+      await document.fonts.ready;
+      const cardImages = Array.from(cardFrontRef.current.querySelectorAll("img"));
+      await Promise.all(cardImages.map(async image => {
+        if (!image.complete) await new Promise<void>((resolve, reject) => {
+          image.addEventListener("load", () => resolve(), { once: true });
+          image.addEventListener("error", () => reject(new Error("card image failed to load")), { once: true });
+        });
+        await image.decode?.().catch(() => undefined);
+      }));
+      const previousBlendModes = cardImages.map(image => image.style.mixBlendMode);
+      cardImages.forEach(image => { image.style.mixBlendMode = "normal"; });
+      const roleTitle = cardFrontRef.current.querySelector<HTMLElement>("h2");
+      const previousTitleStyle = roleTitle?.getAttribute("style") ?? null;
+      if (roleTitle) {
+        roleTitle.style.color = "#ff3f91";
+        roleTitle.style.webkitTextStroke = "0";
+        roleTitle.style.textShadow = "2px 0 0 #ffd35a, -2px 0 0 #ffd35a, 0 2px 0 #ffd35a, 0 -2px 0 #ffd35a, 5px 5px 0 #8fe3c0";
+      }
+      let dataUrl: string;
+      try {
+        dataUrl = await toPng(cardFrontRef.current, {
+          cacheBust: false,
+          pixelRatio: 3,
+          backgroundColor: "#ffd35a",
+          style: { transform: "none", color: "#17131d", mixBlendMode: "normal" },
+        });
+      } finally {
+        cardImages.forEach((image, index) => { image.style.mixBlendMode = previousBlendModes[index]; });
+        if (roleTitle) {
+          if (previousTitleStyle === null) roleTitle.removeAttribute("style");
+          else roleTitle.setAttribute("style", previousTitleStyle);
+        }
+      }
       const filename = `failfirst-${primary.code.toLowerCase()}.png`;
       const blob = await (await fetch(dataUrl)).blob();
       const file = new File([blob], filename, { type: "image/png" });
