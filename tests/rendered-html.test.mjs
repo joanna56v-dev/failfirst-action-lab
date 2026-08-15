@@ -1,91 +1,52 @@
 import assert from "node:assert/strict";
-import { access, readFile, readdir } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
-
-const developmentPreviewMeta =
-  /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
-const templateRoot = new URL("../", import.meta.url);
-const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
 
 async function render() {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
-
   return worker.fetch(
-    new Request("http://localhost/", {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
+    new Request("http://localhost/", { headers: { accept: "text/html" } }),
+    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+    { waitUntil() {}, passThroughOnException() {} },
   );
 }
 
-test("server-renders the starter loading skeleton", async () => {
+test("server-renders the FailFirst adventure", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-
   const html = await response.text();
-  assert.match(html, developmentPreviewMeta);
-  assert.match(html, /<title>Your site is taking shape<\/title>/i);
-  assert.match(html, /Building your site/);
-  assert.match(html, /Your site is taking shape/);
-  assert.match(
-    html,
-    /Your first version will appear here automatically when it’s ready\./,
-  );
-  assert.doesNotMatch(html, /Codex/);
-  assert.match(html, /react-loading-skeleton/);
-  assert.match(html, /role="status"/);
+  assert.match(html, /<title>FailFirst/);
+  assert.match(html, /先失败，再开始/);
+  assert.match(html, /进入行动实验/);
+  assert.match(html, /冒险手册/);
 });
 
-test("keeps the loading skeleton scoped and disposable", async () => {
-  const [preview, css, page, layout, packageJson, files] = await Promise.all([
-    readFile(new URL("SkeletonPreview.tsx", previewRoot), "utf8"),
-    readFile(new URL("preview.css", previewRoot), "utf8"),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../package.json", import.meta.url), "utf8"),
-    readdir(previewRoot),
-  ]);
+test("keeps every adventure question at four choices", async () => {
+  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  const life = await readFile(new URL("../app/life-adventures.ts", import.meta.url), "utf8");
+  for (const title of ["消失的邀请函", "静默邮箱森林", "技能迷宫", "面试悬崖", "第一扇门"]) assert.match(page, new RegExp(title));
+  for (const title of ["未打开的旅行箱", "陌生城市", "语言森林", "独处夜晚", "远方灯塔"]) assert.match(life, new RegExp(title));
 
-  assert.deepEqual(files.sort(), ["SkeletonPreview.tsx", "preview.css"]);
-  assert.match(preview, /from "react-loading-skeleton"/);
-  assert.match(preview, /baseColor="#eceae7"/);
-  assert.match(preview, /highlightColor="#f9f8f6"/);
-  assert.match(preview, /duration=\{2\.8\}/);
-  assert.match(preview, /sites-skeleton-search-placeholder/);
-  assert.match(packageJson, /"react-loading-skeleton": "3\.5\.0"/);
+  const discoveryBlock = page.slice(page.indexOf("const discoveries"), page.indexOf("const events"));
+  const discoveryChoiceGroups = [...discoveryBlock.matchAll(/choices:\s*\[([\s\S]*?)\n\s*\]\}/g)];
+  assert.equal(discoveryChoiceGroups.length, 5);
+  for (const [, choices] of discoveryChoiceGroups) assert.equal((choices.match(/^\s*\["/gm) ?? []).length, 4);
 
-  const shellIndex = preview.indexOf('className="sites-skeleton-shell"');
-  const statusIndex = preview.indexOf('className="sites-skeleton-status"');
-  assert.ok(shellIndex >= 0 && statusIndex > shellIndex);
-  assert.match(css, /position:\s*fixed/);
-  assert.match(css, /inset:\s*0/);
-  assert.match(css, /opacity:\s*0\.52/);
-  assert.match(css, /prefers-reduced-motion:\s*reduce/);
-  assert.doesNotMatch(css, /#020617|canvas|pets|progress/i);
-  assert.doesNotMatch(
-    preview,
-    /loading-spinner|status-mark|status-progress|canvas|cookie|random/i,
-  );
+  const lifeChoiceGroups = [...life.matchAll(/choices:\s*\[([\s\S]*?)\n\s*\],/g)];
+  assert.equal(lifeChoiceGroups.length, 5);
+  for (const [, choices] of lifeChoiceGroups) assert.equal((choices.match(/\{ text:/g) ?? []).length, 4);
+});
 
-  assert.match(page, /export const metadata:\s*Metadata/);
-  assert.match(page, /"codex-preview": "development"/);
-  assert.match(page, /<SkeletonPreview \/>/);
-  assert.match(layout, /title:\s*"Starter Project"/);
-  assert.doesNotMatch(layout, /codex-preview|_sites-preview|themeColor|\bViewport\b/);
-  assert.doesNotMatch(css, /(^|\s)(html|body)\s*\{/m);
-
-  await assert.rejects(
-    access(new URL("public/_sites-preview", templateRoot)),
-  );
+test("ships the handbook, Action Bugs, and Failure Museum", async () => {
+  const page = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
+  for (const name of ["再等等怪", "脑内开会王", "收藏大户", "新手村村长", "完美拖延师", "明天再说侠"]) assert.match(page, new RegExp(name));
+  for (const section of ["FailFirst 是什么", "为什么创建", "核心理念", "游戏玩法", "Action Bug 图鉴", "当前开放副本", "AI 在做什么", "后续地图", "项目档案"]) assert.match(page, new RegExp(section));
+  assert.match(page, /带着不确定出发的人/);
+  assert.match(page, /我的失败收藏馆/);
+  assert.match(page, /保存我的失败收藏/);
+  assert.match(page, /开启下一次冒险/);
+  assert.doesNotMatch(page, /保存我的行动卡|再探索一次|性格测试|恐惧分析|拖延症|完美主义人格|装备焦虑区/);
 });
