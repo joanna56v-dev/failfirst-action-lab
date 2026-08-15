@@ -91,6 +91,7 @@ export default function Home() {
   const [storyFeedback, setStoryFeedback] = useState<{ text: string; cost: string } | null>(null);
   const [flipped, setFlipped] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState("");
   const cardFrontRef = useRef<HTMLDivElement>(null);
 
   const primaryId = useMemo(() => {
@@ -139,6 +140,7 @@ export default function Home() {
   async function saveCard() {
     if (!cardFrontRef.current || saving) return;
     setSaving(true);
+    setSaveMessage("");
     setFlipped(false);
     await new Promise(resolve => setTimeout(resolve, 180));
     try {
@@ -148,10 +150,36 @@ export default function Home() {
         backgroundColor: "#ffd35a",
         style: { transform: "none", color: "#17131d", mixBlendMode: "normal" },
       });
+      const filename = `failfirst-${primary.code.toLowerCase()}.png`;
+      const blob = await (await fetch(dataUrl)).blob();
+      const file = new File([blob], filename, { type: "image/png" });
+      const isMobile = navigator.maxTouchPoints > 1 || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if (isMobile && navigator.share && navigator.canShare?.({ files: [file] })) {
+        setSaveMessage("请在系统菜单中选择“存储图像”");
+        try {
+          await navigator.share({ files: [file], title: `${primary.name}｜FailFirst` });
+          setSaveMessage("图片已交给系统处理");
+          return;
+        } catch (error) {
+          if (error instanceof DOMException && error.name === "AbortError") {
+            setSaveMessage("已取消保存");
+            return;
+          }
+        }
+      }
+
       const link = document.createElement("a");
-      link.download = `failfirst-${primary.code.toLowerCase()}.png`;
-      link.href = dataUrl;
+      const objectUrl = URL.createObjectURL(blob);
+      link.download = filename;
+      link.href = objectUrl;
+      document.body.appendChild(link);
       link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+      setSaveMessage(isMobile ? "图片已下载，请从下载项保存到相册" : "角色图片已保存");
+    } catch {
+      setSaveMessage("图片生成失败，请重新尝试");
     } finally {
       setSaving(false);
     }
@@ -185,13 +213,13 @@ export default function Home() {
       <header><button className="back" onClick={() => setStep("landing")}>← 返回起点</button><p className="brand small">FAIL<span>FIRST</span><sup>↗︎</sup></p><p>PLAYER GUIDE · V1.0</p></header>
       <div className="handbook-hero"><p className="kicker">WELCOME, PLAYER 001</p><h1 tabIndex={-1}>冒险手册</h1><p>这里没有标准答案，也没有给你贴标签的裁判。<br/>只有一张地图，帮你看见“为什么还没开始”。</p></div>
       <div className="handbook-grid">
-        <article className="manual-card manual-wide pink"><small>CHAPTER 01 · WHAT</small><h2>FailFirst 是什么？</h2><p>FailFirst 是一个 AI 驱动的互动失败模拟游戏。<br/><br/>它帮助你发现隐藏的“行动 Bug”，通过冒险、副本和失败模拟，找到阻止你开始的原因。<br/><br/>它不帮你避免失败，而是让你不再害怕失败。</p><b>它不是预测你是谁，而是帮助你开始下一步。</b></article>
-        <article className="manual-card yellow"><small>CHAPTER 02 · WHY</small><h2>为什么创建？</h2><p>很多人不是没有目标。<br/><br/>他们一直学习、准备、规划，却停留在出发前。<br/><br/>FailFirst 想解决的不是失败，而是：</p><b>害怕失败，所以不敢开始。</b></article>
-        <article className="manual-card mint"><small>CORE RULE</small><h2>核心理念</h2><p>每个冒险者都有自己的 Bug。<br/><br/>它们曾经保护你，让你避开未知和风险。<br/><br/>但当旧规则阻挡新的旅程，你需要做的不是消灭它。<br/><br/>而是：</p><b>发现它，<br/>升级它，<br/>继续前进。</b></article>
+        <article className="manual-card manual-wide pink"><small>CHAPTER 01 · WHAT</small><h2>FailFirst 是什么？</h2><p>FailFirst 是一个 AI 驱动的互动失败模拟游戏。<br/>它帮助你发现隐藏的“行动 Bug”，通过冒险、副本和失败模拟，找到阻止你开始的原因。<br/>它不帮你避免失败，而是让你不再害怕失败。</p><b>它不是预测你是谁，而是帮助你开始下一步。</b></article>
+        <article className="manual-card yellow"><small>CHAPTER 02 · WHY</small><h2>为什么创建？</h2><p>很多人不是没有目标。<br/>他们一直学习、准备、规划，却停留在出发前。<br/>FailFirst 想解决的不是失败，而是：</p><b>害怕失败，所以不敢开始。</b></article>
+        <article className="manual-card mint"><small>CORE RULE</small><h2>核心理念</h2><p>每个冒险者都有自己的 Bug。<br/>它们曾经保护你，让你避开未知和风险。<br/>但当旧规则阻挡新的旅程，你需要做的不是消灭它。<br/>而是：</p><b>发现它，<br/>升级它，<br/>继续前进。</b></article>
         <article className="manual-card manual-wide dark"><small>HOW TO PLAY · 4 STEPS</small><h2>游戏玩法</h2><ol><li><span>01</span>选择一个冒险副本</li><li><span>02</span>完成 5 次冒险选择</li><li><span>03</span>遇见你的 Action Bug</li><li><span>04</span>模拟失败，收藏现实反馈</li></ol></article>
         <article className="manual-card manual-wide violet"><small>CHARACTER INDEX · 06</small><h2>Action Bug 图鉴</h2><div className="bug-index">{(["wait","think","collect","beginner","perfect","tomorrow"] as BugId[]).map(id => <span key={id}><b>{bugs[id].name}</b><small>{bugs[id].line}</small></span>)}</div></article>
         <article className="manual-card pink"><small>OPEN NOW</small><h2>当前开放副本</h2><p><b>OFFER 召唤局</b><br/>为求职、转行和重新出发的玩家准备。人生偷跑局题库已就位，单干开张局仍在加载。</p></article>
-        <article className="manual-card yellow"><small>AI ROLE</small><h2>AI 在做什么？</h2><p>AI 不是告诉你答案的导师。<br/><br/>它是一位冒险观察员：分析你的选择，发现你的行动模式，生成专属反馈和下一步任务。</p><b>帮助你从“想开始”，走向“真正开始”。</b></article>
+        <article className="manual-card yellow"><small>AI ROLE</small><h2>AI 在做什么？</h2><p>AI 不是告诉你答案的导师。<br/>它是一位冒险观察员：分析你的选择，发现你的行动模式，生成专属反馈和下一步任务。</p><b>帮助你从“想开始”，走向“真正开始”。</b></article>
         <article className="manual-card mint"><small>FUTURE ROADMAP</small><h2>后续地图</h2><ul><li>解锁人生偷跑局与单干开张局</li><li>生成个人专属冒险事件</li><li>扩建 Failure Museum 收藏墙</li><li>让一次行动反馈开启下一关</li></ul></article>
       </div>
       <div className="handbook-cta"><p>手册已读。现在，去给现实发一个信号。</p><button className="primary" onClick={() => setStep("world")}>进入行动实验 ↗︎</button></div>
@@ -253,7 +281,7 @@ export default function Home() {
           <p className="event-summary">{events[eventIndex].text}</p>
         </div>
         {!storyFeedback ? <div className="choices">{events[eventIndex].choices.map((c, choiceIndex) => <button key={c[0] as string} onClick={() => pickStory(c)}><span className="option-key">{"ABCD"[choiceIndex]}</span><span className="option-label">{c[0] as string}</span><span className="option-arrow">→</span></button>)}</div>
-        : <div className="feedback story-fb" aria-live="polite"><p>{storyFeedback.text}</p><div><span>脑内 Boss</span><b>这一关会毁掉整张地图</b></div><div className="real"><span>真实掉落</span><b>{storyFeedback.cost}</b></div><button className="primary" onClick={nextStory}>{eventIndex === 2 ? "领取失败收藏" : "走向下一关"} →</button></div>}
+        : <div className="feedback story-fb" aria-live="polite"><p>{storyFeedback.text}</p><div><span>脑内 Boss</span><b>这一关会毁掉整张地图</b></div><div className="real"><span>真实掉落</span><b>{storyFeedback.cost}</b></div><button className="primary" onClick={nextStory}>{eventIndex === 2 ? "领取行动角色" : "走向下一关"} →</button></div>}
       </article>
     </section>}
 
@@ -261,10 +289,10 @@ export default function Home() {
       <div className="pixel-burst" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i}/>)}</div>
       <div className="game-hud" aria-hidden="true"><span>STAGE 03</span><b>GAME CLEAR</b><span>NO CONTINUE USED</span></div>
       <p className="kicker">FIELD TEST COMPLETE · 03/03</p>
-      <h1>通关成功！<br/><em>这次没有白失败。</em></h1>
+      <h1>通关成功！<br/><em>这次没有白失败</em></h1>
       <div className="evidence-count"><span>{String(evidence).padStart(2,"0")}</span><small>REALITY EVIDENCE COLLECTED</small></div>
       <p className="transition-note">你的失败收藏已经生成</p>
-      <button className="primary transition-continue" onClick={() => setStep("result")}>领取失败收藏 <span>↗︎</span></button>
+      <button className="primary transition-continue" onClick={() => setStep("result")}>领取行动角色 <span>↗︎</span></button>
     </section>}
 
     {step === "result" && <section className="screen result">
@@ -273,7 +301,7 @@ export default function Home() {
         <div ref={cardFrontRef} className="card-face front"><small>FAILFIRST · 失败收藏卡 #001</small><img className="card-character" src={primary.image} alt="" /><h2>{primary.name}</h2><blockquote><span>发现行动 Bug</span>“{primary.line}”</blockquote><div className="card-task"><span>下一步任务</span><b>{primary.task}</b></div><i>点击查看属性 ↻</i></div>
         <div className="card-face back-face rpg-back"><small>FAILURE MUSEUM · 失败经验 × {evidence}</small><h2>角色属性</h2><div className="card-stat-list">{primary.stats.map(stat => <div key={stat.label}><span><b>{stat.label}</b><em>{stat.value}%</em></span><i><u style={{width:`${stat.value}%`}} /></i></div>)}</div><div><span>隐藏技能</span><b>{primary.hiddenSkill}</b></div><div><span>升级方向</span><b>{primary.pattern}</b></div><i>点击翻回 ↻</i></div>
       </button>
-      <div className="result-actions"><button className="primary" onClick={saveCard} disabled={saving}>{saving ? "正在生成图片…" : "保存我的角色 ↓"}</button><button className="ghost" onClick={restart}>开启下一次冒险</button></div>
+      <div className="result-actions"><button className="primary" onClick={saveCard} disabled={saving}>{saving ? "正在生成图片…" : "保存我的角色 ↓"}</button><button className="ghost" onClick={restart}>开启下一次冒险</button>{saveMessage && <small className="save-message" aria-live="polite">{saveMessage}</small>}</div>
       <p className="disclaimer">这不是固定标签，只是当前副本里触发的一种保护程序。</p>
     </section>}
   </main>;

@@ -337,14 +337,19 @@
 @media(max-width:760px){.landing .hero-copy>.kicker{top:-8px}}
 
 /* Keep the enlarged pixel slogan optically centered on every viewport. */
-.landing .hero-copy .slogan-title{width:104%;margin-left:-2%;margin-right:-2%}
-.landing .hero-copy .slogan-title img{width:100%;margin-inline:auto}
+.landing .hero-copy .slogan-title{width:104%;height:clamp(118px,11vw,162px);margin-left:-2%;margin-right:-2%;overflow:visible;padding:8px 5px;box-sizing:border-box}
+.landing .hero-copy .slogan-title img{width:98%;max-height:100%;margin-inline:auto;object-fit:contain}
 .landing .hero-copy>.kicker{top:-19px}
 @media(max-width:760px){
-  .landing .hero-copy .slogan-title{width:104%;margin-left:-2%;margin-right:-2%}
-  .landing .hero-copy .slogan-title img{width:100%;margin-inline:auto}
+  .landing .hero-copy .slogan-title{width:104%;height:108px;margin-left:-2%;margin-right:-2%;overflow:visible;padding:7px 4px}
+  .landing .hero-copy .slogan-title img{width:98%;max-height:100%;margin-inline:auto;object-fit:contain}
   .landing .hero-copy>.kicker{top:-14px}
 }
+.save-message{display:block;flex-basis:100%;margin-top:8px;text-align:center;font-size:13px;font-weight:800;color:#17131d}
+.card-transition h1{width:min(900px,100%);margin-inline:auto;justify-self:center;text-align:center}
+.manual-card>p,.manual-card>p+b{font-size:17px;line-height:1.65}
+.manual-card>p+b{display:block;font-weight:900}
+@media(max-width:760px){.manual-card>p,.manual-card>p+b{font-size:15px;line-height:1.65}}
 
 /* Slightly shorter virtual-world entry */
 .story-transition:before{animation-duration:3.1s}.portal-grid i{animation-duration:2.8s}
