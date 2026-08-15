@@ -231,7 +231,7 @@ export default function Home() {
 
     {step === "reveal" && <section className="screen reveal">
       <p className="kicker">SCAN COMPLETE · 检测完成</p>
-      <h1 tabIndex={-1}>发现你的行动 Bug——<br/>这次终于不是网卡了。</h1>
+      <h1 className="reveal-title" tabIndex={-1}>角色扫描完成<br/>发现一个隐藏行动 Bug</h1>
       <div className={`bug-orbit bug-orbit-${primaryId}`}><div className="reveal-character-wrap"><img src={revealImages[primaryId]} alt={primary.name} /></div><i className="orbit one"/><i className="orbit two"/></div>
       <div className={`bug-copy bug-copy-${primaryId}`}><p>{primary.en}</p><h2>{primary.name}</h2><blockquote>“{primary.line}”</blockquote><small>{primary.intro}</small><div className="bug-stats" aria-label="角色属性">{primary.stats.slice(0,3).map(stat => <div key={stat.label}><span><b>{stat.label}</b><em>{stat.value}%</em></span><i><u style={{width:`${stat.value}%`}} /></i></div>)}</div></div>
       <button className="primary" onClick={() => setStep("storyTransition")}>进入失败副本 ↗</button>
