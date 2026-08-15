@@ -210,7 +210,7 @@ export default function Home() {
 
     {step === "room" && <section className="screen room">
       <header><button className="back" onClick={() => setStep("world")}>← 返回群岛</button><p className="map-progress">{discoveries.map((d,i) => <span key={d.name} className={i <= objectIndex ? "active" : ""}>{d.icon}</span>)}</p></header>
-      <div className="room-stage"><div className={`question-art question-art-${objectIndex + 1}`}><img src={discoveries[objectIndex].image} alt="" /><span>{discoveries[objectIndex].icon}</span></div><p>{discoveries[objectIndex].place}</p></div>
+      <div className="room-stage"><div className={`question-art question-art-${objectIndex + 1}`} style={{backgroundImage:`url("${discoveries[objectIndex].image}")`}}><img src={discoveries[objectIndex].image} alt="" /><span>{discoveries[objectIndex].icon}</span></div><p>{discoveries[objectIndex].place}</p></div>
       <div className="dialogue">
         <p className="kicker">{"< "}你发现了 · {discoveries[objectIndex].name}{" >"}</p>
         {objectIndex === 1 && <div className="quest-loadout" aria-label="当前关卡装备栏">
@@ -239,13 +239,13 @@ export default function Home() {
 
     {step === "storyTransition" && <section className="screen story-transition" aria-live="polite">
       <div className="portal-grid" aria-hidden="true"><i/><i/><i/><i/></div>
-      <p>ENTERING FAILURE SIMULATION</p><b>这里不会真正失去机会</b><span>提前体验：行动之后会发生什么 · 01 / 03</span>
+      <p>ENTERING FAILURE SIMULATION</p><b>失败模拟副本已开启</b><span>提前体验：行动之后会发生什么 · 01 / 03</span>
     </section>}
 
     {step === "story" && <section className="screen story">
       <header><p className="brand small">FAIL<span>FIRST</span></p><p>职业冒险副本 · {eventIndex + 1}/3</p></header>
       <div className="progress-line"><i style={{width:`${(eventIndex+1)/3*100}%`}} /></div>
-      <div className={`event-visual event-visual-${eventIndex + 1}`}><img src={events[eventIndex].image} alt="" /><span>{events[eventIndex].icon}</span></div>
+      <div className={`event-visual event-visual-${eventIndex + 1}`} style={{backgroundImage:`url("${events[eventIndex].image}")`}}><img src={events[eventIndex].image} alt="" /><span>{events[eventIndex].icon}</span></div>
       <article className={`event-card event-card-${eventIndex + 1}`}>
         <p className="kicker">EVENT 0{eventIndex+1}</p>
         <div className="event-heading">
