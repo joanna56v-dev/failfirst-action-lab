@@ -361,6 +361,10 @@
   .landing .hero-copy>p:not(.kicker){margin-top:8px}
   .landing .hero-copy .hero-actions{margin-top:12px}
   .landing .hero-copy .hero-mission-note{margin-top:20px}
+  .landing .hero-world{width:100%;height:clamp(240px,64vw,300px);min-height:0;margin:14px 0 0;overflow:visible}
+  .landing .hero-world img{width:100%;height:auto;max-height:100%;object-fit:contain;object-position:center;clip-path:none}
+  .landing .hero-world:before{width:96%;height:88%}
+  .landing .hero-index{right:0;bottom:4px}
 }
 
 /* Slightly shorter virtual-world entry */

@@ -146,24 +146,46 @@ export default function Home() {
     try {
       await document.fonts.ready;
       const cardImages = Array.from(cardFrontRef.current.querySelectorAll("img"));
-      await Promise.all(cardImages.map(async image => {
-        if (!image.complete) await new Promise<void>((resolve, reject) => {
-          image.addEventListener("load", () => resolve(), { once: true });
-          image.addEventListener("error", () => reject(new Error("card image failed to load")), { once: true });
-        });
-        await image.decode?.().catch(() => undefined);
-      }));
+      const previousImageSources = cardImages.map(image => image.getAttribute("src") ?? "");
       const previousBlendModes = cardImages.map(image => image.style.mixBlendMode);
-      cardImages.forEach(image => { image.style.mixBlendMode = "normal"; });
       const roleTitle = cardFrontRef.current.querySelector<HTMLElement>("h2");
       const previousTitleStyle = roleTitle?.getAttribute("style") ?? null;
-      if (roleTitle) {
-        roleTitle.style.color = "#ff3f91";
-        roleTitle.style.webkitTextStroke = "0";
-        roleTitle.style.textShadow = "2px 0 0 #ffd35a, -2px 0 0 #ffd35a, 0 2px 0 #ffd35a, 0 -2px 0 #ffd35a, 5px 5px 0 #8fe3c0";
-      }
+      let titleShadow: HTMLElement | null = null;
       let dataUrl: string;
       try {
+        await Promise.all(cardImages.map(async image => {
+          const response = await fetch(image.currentSrc || image.src, { cache: "force-cache" });
+          if (!response.ok) throw new Error("card image failed to load");
+          const imageBlob = await response.blob();
+          const embeddedSource = await new Promise<string>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result));
+            reader.onerror = () => reject(reader.error);
+            reader.readAsDataURL(imageBlob);
+          });
+          image.src = embeddedSource;
+          image.style.mixBlendMode = "normal";
+          await image.decode?.().catch(() => undefined);
+        }));
+        if (roleTitle) {
+          roleTitle.style.position = "relative";
+          roleTitle.style.zIndex = "2";
+          roleTitle.style.color = "#ff3f91";
+          roleTitle.style.webkitTextStroke = "0";
+          roleTitle.style.textShadow = "2px 0 0 #ffd35a, -2px 0 0 #ffd35a, 0 2px 0 #ffd35a, 0 -2px 0 #ffd35a";
+          titleShadow = roleTitle.cloneNode(true) as HTMLElement;
+          titleShadow.removeAttribute("id");
+          titleShadow.setAttribute("aria-hidden", "true");
+          titleShadow.style.position = "absolute";
+          titleShadow.style.left = `${roleTitle.offsetLeft + 5}px`;
+          titleShadow.style.top = `${roleTitle.offsetTop + 5}px`;
+          titleShadow.style.width = `${roleTitle.offsetWidth}px`;
+          titleShadow.style.margin = "0";
+          titleShadow.style.color = "#8fe3c0";
+          titleShadow.style.textShadow = "none";
+          titleShadow.style.zIndex = "1";
+          cardFrontRef.current.appendChild(titleShadow);
+        }
         dataUrl = await toPng(cardFrontRef.current, {
           cacheBust: false,
           pixelRatio: 3,
@@ -171,7 +193,11 @@ export default function Home() {
           style: { transform: "none", color: "#17131d", mixBlendMode: "normal" },
         });
       } finally {
-        cardImages.forEach((image, index) => { image.style.mixBlendMode = previousBlendModes[index]; });
+        titleShadow?.remove();
+        cardImages.forEach((image, index) => {
+          image.src = previousImageSources[index];
+          image.style.mixBlendMode = previousBlendModes[index];
+        });
         if (roleTitle) {
           if (previousTitleStyle === null) roleTitle.removeAttribute("style");
           else roleTitle.setAttribute("style", previousTitleStyle);
@@ -263,7 +289,7 @@ export default function Home() {
     </section>}
 
     {step === "room" && <section className="screen room">
-      <header><button className="back" onClick={() => setStep("world")}>← 返回群岛</button><p className="map-progress">{discoveries.map((d,i) => <span key={d.name} className={i <= objectIndex ? "active" : ""}>{d.icon}</span>)}</p></header>
+      <header><button className="back" onClick={() => setStep("world")}>← 返回入口</button><p className="map-progress">{discoveries.map((d,i) => <span key={d.name} className={i <= objectIndex ? "active" : ""}>{d.icon}</span>)}</p></header>
       <div className="room-stage"><div className={`question-art question-art-${objectIndex + 1}`}><img src={discoveries[objectIndex].image} alt="" /><span>{discoveries[objectIndex].icon}</span></div><p>{discoveries[objectIndex].place}</p></div>
       <div className="dialogue">
         <p className="kicker">{"< "}你发现了 · {discoveries[objectIndex].name}{" >"}</p>
