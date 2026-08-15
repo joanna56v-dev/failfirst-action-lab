@@ -165,7 +165,7 @@ export default function Home() {
       <p className="brand">FAIL<span>FIRST</span><sup>↗︎</sup></p>
       <div className="hero-copy">
         <p className="kicker">AN INTERACTIVE FIELD TEST · 001</p>
-        <h1 className="slogan-title" tabIndex={-1}><img src="/branding/slogan-pixel-v4.png" alt="先失败，再开始" /></h1>
+        <h1 className="slogan-title" tabIndex={-1}><img src="/branding/slogan-pixel-v5.png" alt="先失败，再开始" /></h1>
         <p>每个人都有一个偷偷阻止自己开始的小 Bug。<br/>找到它，挑战它，然后启动下一步。</p>
         <div className="hero-actions">
           <button className="primary" onClick={() => setStep("world")}>进入行动实验 <span>↗︎</span></button>
@@ -176,24 +176,23 @@ export default function Home() {
       <div className="hero-world" aria-label="七只行动怪兽组成的场景群像">
         <div className="hero-paint paint-a"/><div className="hero-paint paint-b"/>
         <img src="/hero-monsters.png" alt="七只行动怪兽在同一个场景里互动" />
-        <div className="hero-index"><b>07 / 01</b><span>MEET YOUR ACTION BUGS</span></div>
+        <div className="hero-index"><b>DISCOVER YOUR</b><span>ACTION BUG</span></div>
       </div>
-      <p className="footnote">约 5 分钟 · 无标准答案 · 每次冒险都算数</p>
+      <p className="footnote">无标准答案 · 每次冒险都算数</p>
     </section>}
 
     {step === "handbook" && <section className="screen handbook">
       <header><button className="back" onClick={() => setStep("landing")}>← 返回起点</button><p className="brand small">FAIL<span>FIRST</span><sup>↗︎</sup></p><p>PLAYER GUIDE · V1.0</p></header>
       <div className="handbook-hero"><p className="kicker">WELCOME, PLAYER 001</p><h1 tabIndex={-1}>冒险手册</h1><p>这里没有标准答案，也没有给你贴标签的裁判。<br/>只有一张地图，帮你看见“为什么还没开始”。</p></div>
       <div className="handbook-grid">
-        <article className="manual-card manual-wide pink"><small>CHAPTER 01 · WHAT</small><h2>FailFirst 是什么？</h2><p>一个发现“行动 Bug”的互动冒险游戏。你会探索地图、做出选择、进入安全的失败副本，再把现实反馈带回背包。</p><b>不是测你是谁，而是找到什么正在卡住下一步。</b></article>
-        <article className="manual-card yellow"><small>CHAPTER 02 · WHY</small><h2>为什么创建？</h2><p>很多人不是没有目标，而是把准备、分析和等待玩成了无限前置任务。FailFirst 想让第一次行动变小、变具体，也变得没那么孤单。</p></article>
-        <article className="manual-card mint"><small>CORE RULE</small><h2>核心理念</h2><p>失败不是判决，是地图更新。Action Bug 也不是敌人——它曾经负责保护你，现在只是需要一次系统升级。</p></article>
+        <article className="manual-card manual-wide pink"><small>CHAPTER 01 · WHAT</small><h2>FailFirst 是什么？</h2><p>FailFirst 是一个 AI 驱动的互动失败模拟游戏。<br/><br/>它帮助你发现隐藏的“行动 Bug”，通过冒险、副本和失败模拟，找到阻止你开始的原因。<br/><br/>它不帮你避免失败，而是让你不再害怕失败。</p><b>它不是预测你是谁，而是帮助你开始下一步。</b></article>
+        <article className="manual-card yellow"><small>CHAPTER 02 · WHY</small><h2>为什么创建？</h2><p>很多人不是没有目标。<br/><br/>他们一直学习、准备、规划，却停留在出发前。<br/><br/>FailFirst 想解决的不是失败，而是：</p><b>害怕失败，所以不敢开始。</b></article>
+        <article className="manual-card mint"><small>CORE RULE</small><h2>核心理念</h2><p>每个冒险者都有自己的 Bug。<br/><br/>它们曾经保护你，让你避开未知和风险。<br/><br/>但当旧规则阻挡新的旅程，你需要做的不是消灭它。<br/><br/>而是：</p><b>发现它，<br/>升级它，<br/>继续前进。</b></article>
         <article className="manual-card manual-wide dark"><small>HOW TO PLAY · 4 STEPS</small><h2>游戏玩法</h2><ol><li><span>01</span>选择一个冒险副本</li><li><span>02</span>完成 5 次冒险选择</li><li><span>03</span>遇见你的 Action Bug</li><li><span>04</span>模拟失败，收藏现实反馈</li></ol></article>
         <article className="manual-card manual-wide violet"><small>CHARACTER INDEX · 06</small><h2>Action Bug 图鉴</h2><div className="bug-index">{(["wait","think","collect","beginner","perfect","tomorrow"] as BugId[]).map(id => <span key={id}><b>{bugs[id].name}</b><small>{bugs[id].line}</small></span>)}</div></article>
         <article className="manual-card pink"><small>OPEN NOW</small><h2>当前开放副本</h2><p><b>OFFER 召唤局</b><br/>为求职、转行和重新出发的玩家准备。人生偷跑局题库已就位，单干开张局仍在加载。</p></article>
-        <article className="manual-card yellow"><small>AI ROLE</small><h2>AI 在做什么？</h2><p>当前 Demo 使用本地计分引擎匹配行动模式。完整版中，AI 将负责把玩家情境改写成专属副本、生成低成本下一步，并根据反馈更新任务；它不负责替玩家下结论。</p></article>
+        <article className="manual-card yellow"><small>AI ROLE</small><h2>AI 在做什么？</h2><p>AI 不是告诉你答案的导师。<br/><br/>它是一位冒险观察员：分析你的选择，发现你的行动模式，生成专属反馈和下一步任务。</p><b>帮助你从“想开始”，走向“真正开始”。</b></article>
         <article className="manual-card mint"><small>FUTURE ROADMAP</small><h2>后续地图</h2><ul><li>解锁人生偷跑局与单干开张局</li><li>生成个人专属冒险事件</li><li>扩建 Failure Museum 收藏墙</li><li>让一次行动反馈开启下一关</li></ul></article>
-        <article className="manual-card dark"><small>PROJECT INFO</small><h2>项目档案</h2><p>项目：FailFirst<br/>类型：互动行动冒险 Demo<br/>版本：Hackathon Build 001<br/>状态：OFFER 副本开放中</p></article>
       </div>
       <div className="handbook-cta"><p>手册已读。现在，去给现实发一个信号。</p><button className="primary" onClick={() => setStep("world")}>进入行动实验 ↗︎</button></div>
     </section>}
@@ -231,7 +230,7 @@ export default function Home() {
 
     {step === "reveal" && <section className="screen reveal">
       <p className="kicker">SCAN COMPLETE · 检测完成</p>
-      <h1 className="reveal-title" tabIndex={-1}><span>角色扫描完成</span><span>发现一个隐藏行动 Bug</span></h1>
+      <h1 className="reveal-title" tabIndex={-1}><span>角色扫描完成</span><span>发现一个隐藏行动 BUG</span></h1>
       <div className={`bug-orbit bug-orbit-${primaryId}`}><div className="reveal-character-wrap"><img src={revealImages[primaryId]} alt={primary.name} /></div><i className="orbit one"/><i className="orbit two"/></div>
       <div className={`bug-copy bug-copy-${primaryId}`}><p>{primary.en}</p><h2>{primary.name}</h2><blockquote>“{primary.line}”</blockquote><small>{primary.intro}</small><div className="bug-stats" aria-label="角色属性">{primary.stats.slice(0,3).map(stat => <div key={stat.label}><span><b>{stat.label}</b><em>{stat.value}%</em></span><i><u style={{width:`${stat.value}%`}} /></i></div>)}</div></div>
       <button className="primary" onClick={() => setStep("storyTransition")}>进入失败副本 ↗︎</button>

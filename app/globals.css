@@ -336,6 +336,16 @@
 .landing .hero-copy>.kicker{position:relative;top:-12px}
 @media(max-width:760px){.landing .hero-copy>.kicker{top:-8px}}
 
+/* Keep the enlarged pixel slogan optically centered on every viewport. */
+.landing .hero-copy .slogan-title{width:104%;margin-left:-2%;margin-right:-2%}
+.landing .hero-copy .slogan-title img{width:100%;margin-inline:auto}
+.landing .hero-copy>.kicker{top:-19px}
+@media(max-width:760px){
+  .landing .hero-copy .slogan-title{width:104%;margin-left:-2%;margin-right:-2%}
+  .landing .hero-copy .slogan-title img{width:100%;margin-inline:auto}
+  .landing .hero-copy>.kicker{top:-14px}
+}
+
 /* Slightly shorter virtual-world entry */
 .story-transition:before{animation-duration:3.1s}.portal-grid i{animation-duration:2.8s}
 
@@ -558,6 +568,7 @@
 .reveal .reveal-title span{
   display:block;
   opacity:0;
+  text-shadow:0 5px 12px rgba(198,31,105,.78);
   animation:scanTitleIn .58s cubic-bezier(.2,.75,.25,1) forwards;
 }
 .reveal .reveal-title span+span{
@@ -584,4 +595,48 @@
 .option-arrow,.primary span,.brand sup,.world-island i{
   font-family:Arial,"Helvetica Neue",sans-serif;
   font-variant-emoji:text;
+}
+.hero-index{
+  min-width:172px;
+  padding:13px 16px;
+}
+.hero-index b,.hero-index span{
+  font-family:"Arial Black",Inter,sans-serif;
+  font-size:14px;
+  line-height:1.12;
+  letter-spacing:.055em;
+  white-space:nowrap;
+}
+.hero-index span{margin-top:4px;color:#ff9fc5}
+@media(max-width:760px){
+  .hero-index{min-width:150px;padding:10px 12px}
+  .hero-index b,.hero-index span{font-size:12px;letter-spacing:.04em}
+}
+
+/* Consistent character-name treatment: colored edge and shadow, never a black mobile stroke. */
+.bug-copy h2,.failure-card .card-face h2{
+  color:#ff3f91;
+  -webkit-text-stroke:0;
+  text-shadow:
+    2px 0 0 #ffd35a,
+    -2px 0 0 #ffd35a,
+    0 2px 0 #ffd35a,
+    0 -2px 0 #ffd35a,
+    5px 5px 0 #8fe3c0;
+}
+.failure-card .front h2{
+  margin-top:10px;
+}
+.reveal .reveal-title{
+  animation:scanTitleFloat 3.2s ease-in-out .9s infinite;
+}
+@keyframes scanTitleFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+@media(max-width:760px){
+  .failure-card .front h2{margin-top:11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .reveal .reveal-title{animation:none}
 }
