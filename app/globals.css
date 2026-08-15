@@ -495,8 +495,8 @@
   .room{background:#ffe8f0}
   .room{grid-template-rows:30svh auto}
   .room-stage,.question-art,.question-art img{display:block;width:100%;height:30svh;max-height:30svh}
-  .question-art{background-color:#ffe8f0;background-position:center;background-repeat:no-repeat;background-size:cover}
-  .question-art img{position:relative;z-index:1;object-fit:contain;object-position:center;transform:none;background:transparent}
+  .question-art{background:#ffe8f0}
+  .question-art img{position:relative;z-index:1;object-fit:cover;object-position:center top;transform:scale(1.035);transform-origin:center top;background:transparent}
   .question-art:after{z-index:2}
   .room .dialogue{display:flex;flex-direction:column;box-sizing:border-box;min-height:70svh;padding:10px 18px 22px;background:#ffe8f0}
   .room .choices{flex:1;grid-template-rows:repeat(4,minmax(66px,1fr));align-content:stretch;gap:10px;margin-top:5px}
@@ -518,12 +518,12 @@
   .story{background:#ffe8f0}
   .story{grid-template-rows:30svh auto}
   .event-visual,.event-visual img{display:block;width:100%;height:30svh;max-height:30svh}
-  .event-visual{background-color:#ffe8f0;background-position:center;background-repeat:no-repeat;background-size:cover}
-  .event-visual img{position:relative;z-index:1;object-fit:contain;object-position:center;transform:none;background:transparent}
+  .event-visual{background:#ffe8f0}
+  .event-visual img{position:relative;z-index:1;object-fit:cover;object-position:center top;transform:scale(1.035);transform-origin:center top;background:transparent}
   .event-visual:after{z-index:2}
   .story .event-card{display:flex;flex-direction:column;box-sizing:border-box;min-height:70svh;padding:14px 18px 24px;background:#ffe8f0}
-  .story .event-card .choices{flex:1;align-content:space-between;gap:14px;margin-top:5px}
-  .story .event-card .choices button{width:100%}
+  .story .event-card .choices{flex:1;grid-template-rows:repeat(4,minmax(66px,1fr));align-content:stretch;gap:10px;margin-top:5px}
+  .story .event-card .choices button{width:100%;height:100%}
   .story .event-card>.story-fb{flex:0 0 auto;display:grid;grid-template-columns:1fr;align-content:start;gap:10px;min-height:auto;margin-top:14px;padding:23px}
   .story .event-card>.story-fb>p,.story .event-card>.story-fb>button{grid-column:1}
 }
