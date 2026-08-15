@@ -351,6 +351,18 @@
 .manual-card>p+b{display:block;font-weight:900}
 @media(max-width:760px){.manual-card>p,.manual-card>p+b{font-size:15px;line-height:1.65}}
 
+/* Restore the landing copy and actions to their natural position below the slogan. */
+.landing .hero-copy>p:not(.kicker),.landing .hero-copy .hero-actions{transform:none}
+.landing .hero-copy>p:not(.kicker){margin-top:10px}
+.landing .hero-copy .hero-actions{margin-top:14px}
+.landing .hero-copy .hero-mission-note{margin-top:24px}
+@media(max-width:760px){
+  .landing .hero-copy>p:not(.kicker),.landing .hero-copy .hero-actions{transform:none}
+  .landing .hero-copy>p:not(.kicker){margin-top:8px}
+  .landing .hero-copy .hero-actions{margin-top:12px}
+  .landing .hero-copy .hero-mission-note{margin-top:20px}
+}
+
 /* Slightly shorter virtual-world entry */
 .story-transition:before{animation-duration:3.1s}.portal-grid i{animation-duration:2.8s}
 
