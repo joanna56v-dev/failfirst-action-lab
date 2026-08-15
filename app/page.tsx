@@ -162,13 +162,13 @@ export default function Home() {
       {["✦", "＋", "×", "◇", "▦", "→", "◫", "◆", "✧", "＋", "□", "↗", "◈", "×", "▤", "✦", "→", "◇", "◩", "＋", "◆", "↘", "×", "▦", "✧", "□", "→", "◈", "＋", "◇", "✦", "◫", "×", "↗", "◆", "▤", "＋", "◇", "→", "✧", "◩", "×", "□", "↘", "◈", "＋", "✦", "▦"].map((symbol, index) => <span key={`${symbol}-${index}`}>{symbol}</span>)}
     </div>
     {step === "landing" && <section className="screen landing">
-      <p className="brand">FAIL<span>FIRST</span><sup>↗</sup></p>
+      <p className="brand">FAIL<span>FIRST</span><sup>↗︎</sup></p>
       <div className="hero-copy">
         <p className="kicker">AN INTERACTIVE FIELD TEST · 001</p>
         <h1 className="slogan-title" tabIndex={-1}><img src="/branding/slogan-pixel-v4.png" alt="先失败，再开始" /></h1>
         <p>每个人都有一个偷偷阻止自己开始的小 Bug。<br/>找到它，挑战它，然后启动下一步。</p>
         <div className="hero-actions">
-          <button className="primary" onClick={() => setStep("world")}>进入行动实验 <span>↗</span></button>
+          <button className="primary" onClick={() => setStep("world")}>进入行动实验 <span>↗︎</span></button>
           <button className="handbook-entry" onClick={() => setStep("handbook")}>📖 冒险手册</button>
         </div>
         <small className="hero-mission-note">预计耗时：5 分钟 · 解锁你的行动 Bug</small>
@@ -182,7 +182,7 @@ export default function Home() {
     </section>}
 
     {step === "handbook" && <section className="screen handbook">
-      <header><button className="back" onClick={() => setStep("landing")}>← 返回起点</button><p className="brand small">FAIL<span>FIRST</span><sup>↗</sup></p><p>PLAYER GUIDE · V1.0</p></header>
+      <header><button className="back" onClick={() => setStep("landing")}>← 返回起点</button><p className="brand small">FAIL<span>FIRST</span><sup>↗︎</sup></p><p>PLAYER GUIDE · V1.0</p></header>
       <div className="handbook-hero"><p className="kicker">WELCOME, PLAYER 001</p><h1 tabIndex={-1}>冒险手册</h1><p>这里没有标准答案，也没有给你贴标签的裁判。<br/>只有一张地图，帮你看见“为什么还没开始”。</p></div>
       <div className="handbook-grid">
         <article className="manual-card manual-wide pink"><small>CHAPTER 01 · WHAT</small><h2>FailFirst 是什么？</h2><p>一个发现“行动 Bug”的互动冒险游戏。你会探索地图、做出选择、进入安全的失败副本，再把现实反馈带回背包。</p><b>不是测你是谁，而是找到什么正在卡住下一步。</b></article>
@@ -195,14 +195,14 @@ export default function Home() {
         <article className="manual-card mint"><small>FUTURE ROADMAP</small><h2>后续地图</h2><ul><li>解锁人生偷跑局与单干开张局</li><li>生成个人专属冒险事件</li><li>扩建 Failure Museum 收藏墙</li><li>让一次行动反馈开启下一关</li></ul></article>
         <article className="manual-card dark"><small>PROJECT INFO</small><h2>项目档案</h2><p>项目：FailFirst<br/>类型：互动行动冒险 Demo<br/>版本：Hackathon Build 001<br/>状态：OFFER 副本开放中</p></article>
       </div>
-      <div className="handbook-cta"><p>手册已读。现在，去给现实发一个信号。</p><button className="primary" onClick={() => setStep("world")}>进入行动实验 ↗</button></div>
+      <div className="handbook-cta"><p>手册已读。现在，去给现实发一个信号。</p><button className="primary" onClick={() => setStep("world")}>进入行动实验 ↗︎</button></div>
     </section>}
 
     {step === "world" && <section className="screen world">
-      <header><p className="brand world-brand">FAIL<span>FIRST</span><sup>↗</sup></p><p>选择今天想探索的地方</p></header>
-      <h1 tabIndex={-1}>选择一条<br/><em>尚未发生的路径。</em></h1>
+      <header><p className="brand world-brand">FAIL<span>FIRST</span><sup>↗︎</sup></p><p>选择今天想探索的地方</p></header>
+      <h1 tabIndex={-1}>选择一条<br/><em>尚未发生的路径</em></h1>
       <div className="island-grid">
-        <button className="world-island career" onClick={() => setStep("room")}><span className="island-art">01</span><span className="zone-face" aria-hidden="true">●‿●</span><b>OFFER 召唤局</b><small>职业冒险副本 · ACTIVE</small><p>简历、面试、机会。挑战那个迟迟没有按下的按钮。</p><i>去召唤一个回复 ↗</i></button>
+        <button className="world-island career" onClick={() => setStep("room")}><span className="island-art">01</span><span className="zone-face" aria-hidden="true">●‿●</span><b>OFFER 召唤局</b><small>职业冒险副本 · ACTIVE</small><p>简历、面试、机会。挑战那个迟迟没有按下的按钮。</p><i>去召唤一个回复 ↗︎</i></button>
         <button className="world-island life" disabled><span className="island-art">02</span><span className="zone-face" aria-hidden="true">◉⌁◉</span><b>人生偷跑局</b><small>生活冒险副本 · LOCKED</small><p>旅行、改变、尝试。提前体验一次未知。</p><i>题库已就位 · 支线待解锁</i></button>
         <button className="world-island creator" disabled><span className="island-art">03</span><span className="zone-face" aria-hidden="true">◕×◕</span><b>单干开张局</b><small>创造冒险副本 · LOCKED</small><p>从一个想法，到第一次真实验证。</p><i>营业执照生成中…</i></button>
       </div>
@@ -224,17 +224,17 @@ export default function Home() {
         </div>}
         <p className="quest-description">{discoveries[objectIndex].description}</p>
         <h2 className="quest-prompt" tabIndex={-1}>{discoveries[objectIndex].question}</h2>
-        {!feedback ? <div className="choices">{discoveries[objectIndex].choices.map((c, choiceIndex) => <button key={c[0] as string} onClick={() => pickDiscovery(c)}><span className="option-key">{"ABCD"[choiceIndex]}</span><span className="option-label">{c[0] as string}</span><span className="option-arrow">↗</span></button>)}</div>
+        {!feedback ? <div className="choices">{discoveries[objectIndex].choices.map((c, choiceIndex) => <button key={c[0] as string} onClick={() => pickDiscovery(c)}><span className="option-key">{"ABCD"[choiceIndex]}</span><span className="option-label">{c[0] as string}</span><span className="option-arrow">↗︎</span></button>)}</div>
         : <div className="feedback" aria-live="polite"><p>“{feedback}”</p><button className="primary" onClick={nextDiscovery}>{objectIndex === discoveries.length - 1 ? "解锁行动 Bug" : "继续冒险"} →</button></div>}
       </div>
     </section>}
 
     {step === "reveal" && <section className="screen reveal">
       <p className="kicker">SCAN COMPLETE · 检测完成</p>
-      <h1 className="reveal-title" tabIndex={-1}>角色扫描完成<br/>发现一个隐藏行动 Bug</h1>
+      <h1 className="reveal-title" tabIndex={-1}><span>角色扫描完成</span><span>发现一个隐藏行动 Bug</span></h1>
       <div className={`bug-orbit bug-orbit-${primaryId}`}><div className="reveal-character-wrap"><img src={revealImages[primaryId]} alt={primary.name} /></div><i className="orbit one"/><i className="orbit two"/></div>
       <div className={`bug-copy bug-copy-${primaryId}`}><p>{primary.en}</p><h2>{primary.name}</h2><blockquote>“{primary.line}”</blockquote><small>{primary.intro}</small><div className="bug-stats" aria-label="角色属性">{primary.stats.slice(0,3).map(stat => <div key={stat.label}><span><b>{stat.label}</b><em>{stat.value}%</em></span><i><u style={{width:`${stat.value}%`}} /></i></div>)}</div></div>
-      <button className="primary" onClick={() => setStep("storyTransition")}>进入失败副本 ↗</button>
+      <button className="primary" onClick={() => setStep("storyTransition")}>进入失败副本 ↗︎</button>
     </section>}
 
     {step === "storyTransition" && <section className="screen story-transition" aria-live="polite">
@@ -262,19 +262,19 @@ export default function Home() {
       <div className="pixel-burst" aria-hidden="true">{Array.from({length:12},(_,i)=><i key={i}/>)}</div>
       <div className="game-hud" aria-hidden="true"><span>STAGE 03</span><b>GAME CLEAR</b><span>NO CONTINUE USED</span></div>
       <p className="kicker">FIELD TEST COMPLETE · 03/03</p>
-      <h1>副本完成！<br/><em>失败正在变成掉落物。</em></h1>
+      <h1>通关成功！<br/><em>这次没有白失败。</em></h1>
       <div className="evidence-count"><span>{String(evidence).padStart(2,"0")}</span><small>REALITY EVIDENCE COLLECTED</small></div>
       <p className="transition-note">你的失败收藏已经生成</p>
-      <button className="primary transition-continue" onClick={() => setStep("result")}>领取失败收藏 <span>↗</span></button>
+      <button className="primary transition-continue" onClick={() => setStep("result")}>领取失败收藏 <span>↗︎</span></button>
     </section>}
 
     {step === "result" && <section className="screen result">
       <div className="result-copy"><p className="kicker">🏆 ACTION CHARACTER UNLOCKED</p><h1 tabIndex={-1}>行动角色解锁！</h1><p>你没有消灭行动 Bug，因为它曾经保护过你。<br/>现在，你学会带着它一起前进。</p></div>
       <button className={`failure-card ${flipped ? "flipped" : ""}`} onClick={() => setFlipped(v => !v)} aria-label="翻转失败收藏卡">
-        <div ref={cardFrontRef} className="card-face front"><small>FAILFIRST · 失败收藏卡 #001</small><img className="card-character" src={primary.image} alt="" /><p>经历副本：📨 拒绝信掉落 · {"★".repeat(primary.rarity)}{"☆".repeat(5-primary.rarity)}</p><h2>{primary.name}</h2><blockquote><span>发现行动 Bug</span>“{primary.line}”</blockquote><div className="card-task"><span>下一步任务</span><b>{primary.task}</b></div><i>点击查看属性 ↻</i></div>
+        <div ref={cardFrontRef} className="card-face front"><small>FAILFIRST · 失败收藏卡 #001</small><img className="card-character" src={primary.image} alt="" /><h2>{primary.name}</h2><blockquote><span>发现行动 Bug</span>“{primary.line}”</blockquote><div className="card-task"><span>下一步任务</span><b>{primary.task}</b></div><i>点击查看属性 ↻</i></div>
         <div className="card-face back-face rpg-back"><small>FAILURE MUSEUM · 失败经验 × {evidence}</small><h2>角色属性</h2><div className="card-stat-list">{primary.stats.map(stat => <div key={stat.label}><span><b>{stat.label}</b><em>{stat.value}%</em></span><i><u style={{width:`${stat.value}%`}} /></i></div>)}</div><div><span>隐藏技能</span><b>{primary.hiddenSkill}</b></div><div><span>升级方向</span><b>{primary.pattern}</b></div><i>点击翻回 ↻</i></div>
       </button>
-      <div className="result-actions"><button className="primary" onClick={saveCard} disabled={saving}>{saving ? "正在生成图片…" : "保存我的失败收藏 ↓"}</button><button className="ghost" onClick={restart}>开启下一次冒险</button></div>
+      <div className="result-actions"><button className="primary" onClick={saveCard} disabled={saving}>{saving ? "正在生成图片…" : "保存我的角色 ↓"}</button><button className="ghost" onClick={restart}>开启下一次冒险</button></div>
       <p className="disclaimer">这不是固定标签，只是当前副本里触发的一种保护程序。</p>
     </section>}
   </main>;
