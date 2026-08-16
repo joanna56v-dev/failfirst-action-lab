@@ -1,5 +1,5 @@
 import { readdir, readFile, stat, unlink, writeFile } from "node:fs/promises";
-import { extname, join } from "node:path";
+import { basename, extname, join } from "node:path";
 import sharp from "sharp";
 
 const root = new URL("../dist/", import.meta.url).pathname;
@@ -17,7 +17,9 @@ async function filesUnder(directory) {
 }
 
 const initialFiles = await filesUnder(root);
-const pngFiles = initialFiles.filter((path) => extname(path).toLowerCase() === ".png");
+const pngFiles = initialFiles.filter((path) =>
+  extname(path).toLowerCase() === ".png" && basename(path) !== "failfirst-game-qr.png"
+);
 
 for (const input of pngFiles) {
   const output = input.replace(/\.png$/i, ".webp");

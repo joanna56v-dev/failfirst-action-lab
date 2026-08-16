@@ -268,7 +268,7 @@ export default function Home() {
       <div className="handbook-grid">
         <article className="manual-card manual-wide pink"><small>CHAPTER 01 · WHAT</small><h2>FailFirst 是什么？</h2><p>FailFirst 是一个 AI 驱动的互动失败模拟游戏。<br/>它帮助你发现隐藏的“行动 Bug”，通过冒险、副本和失败模拟，找到阻止你开始的原因。<br/>它不帮你避免失败，而是让你不再害怕失败。</p><b>它不是预测你是谁，而是帮助你开始下一步。</b></article>
         <article className="manual-card yellow"><small>CHAPTER 02 · WHY</small><h2>为什么创建？</h2><p>很多人不是没有目标。<br/>他们一直学习、准备、规划，却停留在出发前。<br/>FailFirst 想解决的不是失败，而是：</p><b>害怕失败，所以不敢开始。</b></article>
-        <article className="manual-card mint"><small>CORE RULE</small><h2>核心理念</h2><p>每个冒险者都有自己的 Bug。<br/>它们曾经保护你，让你避开未知和风险。<br/>但当旧规则阻挡新的旅程，你需要做的不是消灭它。<br/>而是：</p><b>发现它，<br/>升级它，<br/>继续前进。</b></article>
+        <article className="manual-card mint"><small>CORE RULE</small><h2>核心理念</h2><p>每个冒险者都有自己的 Bug。<br/>它们曾经保护你，让你避开未知和风险。<br/>但当旧规则阻挡新的旅程，你需要做的不是消灭它。</p><b>而是：发现它，升级它，继续前进。</b></article>
         <article className="manual-card manual-wide dark"><small>HOW TO PLAY · 4 STEPS</small><h2>游戏玩法</h2><ol><li><span>01</span>选择一个冒险副本</li><li><span>02</span>完成 5 次冒险选择</li><li><span>03</span>遇见你的 Action Bug</li><li><span>04</span>模拟失败，收藏现实反馈</li></ol></article>
         <article className="manual-card manual-wide violet"><small>CHARACTER INDEX · 06</small><h2>Action Bug 图鉴</h2><div className="bug-index">{(["wait","think","collect","beginner","perfect","tomorrow"] as BugId[]).map(id => <span key={id}><b>{bugs[id].name}</b><small>{bugs[id].line}</small></span>)}</div></article>
         <article className="manual-card pink"><small>OPEN NOW</small><h2>当前开放副本</h2><p><b>OFFER 召唤局</b><br/>为求职、转行和重新出发的玩家准备。人生偷跑局题库已就位，单干开张局仍在加载。</p></article>
